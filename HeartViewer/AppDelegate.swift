@@ -7,15 +7,26 @@
 //
 
 import UIKit
+import HealthKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let querySetUp = Queries()
+        
+        querySetUp.fetchHeartSampleOberverQuery()
+        
+        querySetUp.setUpBackgroundDeliveryWithCompletionHandler(){success, error in
+            if success != true {
+                print("\(error)")
+            }
+        }
         return true
     }
 
